@@ -7,11 +7,11 @@ public class Calculator implements ActionListener {
     // Swing instance variables
     JFrame frame;
     JTextField field1;
-    JPanel panel1, panel2, panel3, panel4;
+    JPanel panel1, panel2, panel3, panel4, panel5;
     JButton button1, button2, button3, button4, button5,
-            button6, button7, button8, button9, button0,
+            button6, button7, button8, button9, button0, buttonB1, buttonB2,
             buttonDivide, buttonTimes, buttonMinus, buttonPlus,
-            buttonClear, buttonEquals;
+            buttonClear, buttonEquals, buttonPow, buttonSqrt;
 
     // Instance variables that will be used for our math
     String op;
@@ -69,12 +69,41 @@ public class Calculator implements ActionListener {
         buttonPlus = new JButton("+");
         panel4.add(buttonPlus);
 
+        panel5 = new JPanel();
+        buttonPow = new JButton("Pow");
+        panel5.add(buttonPow);
+        buttonSqrt = new JButton("Sqrt");
+        panel5.add(buttonSqrt);
+
+
+
+
         // Add implemented actionListener method to each button
+        button0.addActionListener(this);
         button1.addActionListener(this);
         button2.addActionListener(this);
-        // ...
-        // ...
-        // YOUR CODE HERE
+        button3.addActionListener(this);
+        button4.addActionListener(this);
+        button5.addActionListener(this);
+        button6.addActionListener(this);
+        button7.addActionListener(this);
+        button8.addActionListener(this);
+        button9.addActionListener(this);
+
+        buttonPlus.addActionListener(this);
+        buttonMinus.addActionListener(this);
+        buttonTimes.addActionListener(this);
+        buttonDivide.addActionListener(this);
+        buttonEquals.addActionListener(this);
+        buttonClear.addActionListener(this);
+
+        buttonPow.addActionListener(this);
+        buttonSqrt.addActionListener(this);
+
+
+
+
+
 
         // Add panels and everything to the actual frame
         frame.add(field1);
@@ -82,6 +111,8 @@ public class Calculator implements ActionListener {
         frame.add(panel2);
         frame.add(panel3);
         frame.add(panel4);
+        frame.add(panel5);
+
 
         // 4. Size the frame
         frame.pack();
@@ -93,12 +124,62 @@ public class Calculator implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         String buttonName = ae.getActionCommand();
 
-        if (buttonName.equals("1")) {
-            field1.setText(field1.getText() + "1");
+        if("0123456789". contains(buttonName)){
+            field1.setText(field1.getText() + buttonName);
         }
-        else if (buttonName.equals("2")) {
-            field1.setText(field1.getText() + "2");
+        else if (buttonName.equals("+")){
+            arg1 = (int) Double.parseDouble(field1.getText());
+            op = "+";
+            field1.setText("");
         }
+        else if (buttonName.equals("-")){
+            arg1 = (int) Double.parseDouble(field1.getText());
+            op = "-";
+            field1.setText("");
+
+        }
+        else if (buttonName.equals("*")){
+            arg1 = (int) Double.parseDouble(field1.getText());
+            op = "*";
+            field1.setText("");
+
+        }
+        else if (buttonName.equals("/")){
+            arg1 = (int) Double.parseDouble(field1.getText());
+            op = "/";
+            field1.setText("");
+
+        }
+        else if (buttonName.equals("Pow")){
+            arg1 = (int) Double.parseDouble(field1.getText());
+            op = "Pow";
+            field1.setText("");
+        }
+        else if (buttonName.equals("Sqrt")) {
+            field1.setText("" + Math.sqrt(Double.parseDouble(field1.getText())));
+        }
+        else if (buttonName.equals("=")){
+            if (op.equals("+")) {
+                field1.setText("" + (arg1 + Double.parseDouble(field1.getText())));
+            }
+            else if (op.equals("-")) {
+                field1.setText("" + (arg1 - Double.parseDouble(field1.getText())));
+            }
+            else if (op.equals("*")) {
+                field1.setText("" + (arg1 * Double.parseDouble(field1.getText())));
+            }
+            else if (op.equals("/")) {
+                field1.setText("" + (arg1 / Double.parseDouble(field1.getText())));
+            }
+            else if (op.equals("Pow")) {
+                field1.setText("" + Math.pow(arg1, Double.parseDouble(field1.getText())));
+            }
+        }
+        else if (buttonName.equals("AC")){
+            field1.setText("");
+        }
+
+
     }
 
     public static void main(String[] args) {
